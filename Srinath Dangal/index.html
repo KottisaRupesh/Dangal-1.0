@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Srinath University Dangal 1.0 Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            /* background-color: #f4f4f4; */
+            background-image: url(game.jpg);
+            background-size: cover;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            /* background: #fff; */
+            background: transparent;
+            backdrop-filter: blur(50px);
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        label{
+            text-align: left;
+        }
+        label, select, input {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .hidden { display: none; }
+        button {
+            background: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        .success-message {
+            color: green;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                max-width: 90%;
+                padding: 15px;
+            }
+            label, select, input, button {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="color: #A31D1D;">Srinath University</h1>
+        <h1>Dangal 1.0 Registration</h1>
+        <label for="college">Enter Your College Name</label>
+        <input type="text" id="college" name="college" required>
+        
+        <label for="event">Select Your Game Event</label>
+        <select id="event" name="event" onchange="showForm()">
+            <option value="">-- Select Event --</option>
+            <option value="badminton-single">Badminton Single Player</option>
+            <option value="badminton-double">Badminton Double Players</option>
+            <option value="carrom-single">Carrom Single Player</option>
+            <option value="carrom-double">Carrom Double Players</option>
+            <option value="tt-single">Table Tennis Single Player</option>
+            <option value="tt-double">Table Tennis Double Players</option>
+            <option value="basketball-five">Basketball Five Players</option>
+            <option value="basketball-ten">Basketball Ten Players</option>
+        </select>
+
+        <form id="registration-form" class="hidden" action="https://formsubmit.co/kottisarupesh@gmail.com" method="POST" enctype="multipart/form-data">
+            <div id="player-fields"></div>
+            <button type="submit">Register Now</button>
+        </form>
+        <p id="success-message" class="hidden success-message">Registration Successful!</p>
+    </div>
+
+    <script>
+        function showForm() {
+            const event = document.getElementById("event").value;
+            const form = document.getElementById("registration-form");
+            const playerFields = document.getElementById("player-fields");
+            playerFields.innerHTML = ""; 
+
+            if (!event) {
+                form.classList.add("hidden");
+                return;
+            }
+            
+            let players = 1;
+            if (event.includes("double")) players = 2;
+            else if (event.includes("five")) players = 5;
+            else if (event.includes("ten")) players = 10;
+            
+            for (let i = 1; i <= players; i++) {
+                playerFields.innerHTML += `
+                    <h3>Player ${i}</h3>
+                    <label for="name${i}">Full Name</label>
+                    <input type="text" name="name${i}" required>
+                    <label for="email${i}">Email Address</label>
+                    <input type="email" name="email${i}" required>
+                    <label for="mobile${i}">Mobile Number</label>
+                    <input type="tel" name="mobile${i}" required>
+                    <label for="whatsapp${i}">WhatsApp Number</label>
+                    <input type="tel" name="whatsapp${i}" required>
+                    <label for="idcard${i}">Upload ID Card</label>
+                    <input type="file" name="idcard${i}" required>
+                `;
+            }
+            
+            form.classList.remove("hidden");
+        }
+    </script>
+</body>
+</html>
